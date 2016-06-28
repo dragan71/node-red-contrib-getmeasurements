@@ -25,9 +25,11 @@ module.exports = function(RED) {
     function HTTPRequestTel(n) {
         RED.nodes.createNode(this,n);
         var node = this;
-        var nodeUrl = n.url;
+        var notification = n.notification;
+        //var nodeUrl = n.url;
+        var nodeUrl = "https://management.teleena-iot.com/event/events";
         var isTemplatedUrl = (nodeUrl||"").indexOf("{{") != -1;
-        var nodeMethod = n.method || "GET";
+        //var nodeMethod = n.method || "GET";
         if (n.tls) {
             var tlsNode = RED.nodes.getNode(n.tls);
         }
@@ -64,13 +66,14 @@ module.exports = function(RED) {
                 }
             }
 
-            var method = nodeMethod.toUpperCase() || "GET";
-            if (msg.method && n.method && (n.method !== "use")) {     // warn if override option not set
-                node.warn(RED._("common.errors.nooverride"));
-            }
-            if (msg.method && n.method && (n.method === "use")) {
-                method = msg.method.toUpperCase();          // use the msg parameter
-            }
+              var method = "GET";
+//            var method = nodeMethod.toUpperCase() || "GET";
+//            if (msg.method && n.method && (n.method !== "use")) {     // warn if override option not set
+//                node.warn(RED._("common.errors.nooverride"));
+//            }
+//            if (msg.method && n.method && (n.method === "use")) {
+//                method = msg.method.toUpperCase();          // use the msg parameter
+//            }
             var opts = urllib.parse(url);
             opts.method = method;
             opts.headers = {};

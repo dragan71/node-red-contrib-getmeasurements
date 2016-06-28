@@ -11,20 +11,15 @@
   limitations under the License.
 -->
 
-<script type="text/x-red" data-template-name="http request tel">
+<script type="text/x-red" data-template-name="getmeasurements">
+    
     <div class="form-row">
-        <label for="node-input-method"><i class="fa fa-tasks"></i> <span data-i18n="httpin.label.method"></span></label>
-        <select type="text" id="node-input-method" style="width:70%;">
-        <option value="GET">GET</option>
-        <option value="POST">POST</option>
-        <option value="PUT">PUT</option>
-        <option value="DELETE">DELETE</option>
-        <option value="use" data-i18n="httpin.setby"></option>
+        <label for="node-input-notification"><i class="fa fa-arrow-left"></i>Notification Type</label>
+        <select type="text" id="node-input-notification" style="width:50%;">
+        <option value='alarms'>Alarms</option>
+        <option value='events'>Events</option>
+        <option value='measurements'>Measurements</option>
         </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-url"><i class="fa fa-globe"></i> <span data-i18n="httpin.label.url"></span></label>
-        <input type="text" id="node-input-url" placeholder="http://">
     </div>
 
     <div class="form-row">
@@ -60,8 +55,8 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-tips" id="tip-json" hidden><span data-i18n="httpin.tip.req"></span></div>
 </script>
@@ -92,14 +87,13 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('http request tel',{
+    RED.nodes.registerType('getmeasurements',{
         category: 'function',
         color:"rgb(231, 231, 174)",
         defaults: {
             name: {value:""},
-            method:{value:"GET"},
+            notification: {value:"All"},
             ret: {value:"txt"},
-            url:{value:""},
             tls: {type:"tls-config",required: false}
         },
         credentials: {
