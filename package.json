@@ -1,0 +1,17 @@
+{
+    "name": "node-red-contrib-getmeasurements",
+    "version": "1.0.0",
+    "description": "A sample of Cumulosity get Measurements...",
+    "keywords": ["util", "functional", "server", "client", "browser"],
+    "author": "d.mihajlovic",
+    "contributors": [],
+    "dependencies"  : {
+        "follow-redirects":"0.2.0",
+        "mustache": "2.2.1"
+    },
+    "node-red": {
+        "nodes": {
+            "getmeasurements": "getmeasurements/getmeasurements.js"
+        }
+    }
+}
