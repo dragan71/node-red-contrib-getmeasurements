@@ -21,6 +21,10 @@ module.exports = function(RED) {
     var urllib = require("url");
     var mustache = require("mustache");
     var querystring = require("querystring");
+    
+    var urlCumul = "https://management.";
+    var urlTenant = "teleena-iot.com/";
+    var urlSufix1 = "";
 
     function HTTPRequestTel(n) {
         RED.nodes.createNode(this,n);
@@ -29,7 +33,21 @@ module.exports = function(RED) {
         var devtype = n.devtype;
         var devname = n.devname;
         //var nodeUrl = n.url;
-        var nodeUrl = "https://management.teleena-iot.com/event/events";
+        //var nodeUrl = "https://management.teleena-iot.com/event/events";
+        //var nodeUrl = urlCumul + urlTenant + "event/events";
+        console.log("Wade - notification = " + notification);
+        
+        if (notification === "measurements") {
+            urlSufix1 = "measurement/measurements";
+        } else if (notification === "events") {
+            urlSufix1 = "event/events";
+        } else if (notification === "alarms") {
+            urlSufix1 = "alarm/alarms";
+        }
+        
+        var nodeUrl = urlCumul + urlTenant + urlSufix1;
+        console.log("Wade - nodeUrl = " + nodeUrl);
+        
         var isTemplatedUrl = (nodeUrl||"").indexOf("{{") != -1;
         //var nodeMethod = n.method || "GET";
         if (n.tls) {
@@ -45,7 +63,7 @@ module.exports = function(RED) {
         if (process.env.no_proxy != null) { noprox = process.env.no_proxy.split(","); }
         if (process.env.NO_PROXY != null) { noprox = process.env.NO_PROXY.split(","); }
         
-        console.log("Wade - notification = " + notification);
+        
         console.log("Wade - devtype = " + devtype);
         console.log("Wade - devname = " + devname);
 
