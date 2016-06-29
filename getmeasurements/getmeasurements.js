@@ -26,6 +26,8 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,n);
         var node = this;
         var notification = n.notification;
+        var devtype = n.devtype;
+        var devname = n.devname;
         //var nodeUrl = n.url;
         var nodeUrl = "https://management.teleena-iot.com/event/events";
         var isTemplatedUrl = (nodeUrl||"").indexOf("{{") != -1;
@@ -42,6 +44,10 @@ module.exports = function(RED) {
         if (process.env.HTTP_PROXY != null) { prox = process.env.HTTP_PROXY; }
         if (process.env.no_proxy != null) { noprox = process.env.no_proxy.split(","); }
         if (process.env.NO_PROXY != null) { noprox = process.env.NO_PROXY.split(","); }
+        
+        console.log("Wade - notification = " + notification);
+        console.log("Wade - devtype = " + devtype);
+        console.log("Wade - devname = " + devname);
 
         this.on("input",function(msg) {
             var preRequestTimestamp = process.hrtime();
@@ -90,6 +96,10 @@ module.exports = function(RED) {
                     }
                 }
             }
+            
+            this.credentials.user = "levi9.dragan";
+            this.credentials.password = "Cum9Tel16";
+            
             if (this.credentials && this.credentials.user) {
                 opts.auth = this.credentials.user+":"+(this.credentials.password||"");
             }
